@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Clock</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Dark background to enhance neon effect */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .clock {
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        #date {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin: 0;
+            font-weight: 300;
+            color: #00ffcc; /* Neon cyan for the date */
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+        }
+
+        #time {
+            font-size: 6rem;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #ff00ff; /* Neon pink for the time */
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 45px #ff00ff;
+        }
+
+        /* Animation */
+        #time {
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
+            }
+        }
+
+        /* Neon border for the clock container */
+        .clock {
+            border: 5px solid #00ffcc;
+            box-shadow: 0 0 30px #00ffcc, 0 0 60px #00ffcc, 0 0 90px #00ffcc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            #date {
+                font-size: 1.5rem;
+            }
+
+            #time {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <p id="date"></p>
+        <p id="time"></p>
+    </div>
+
+    <script>
+        const WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+        function updateTime() {
+            const now = new Date();
+
+            // Update time
+            document.getElementById("time").innerText =
+                zeroPadding(now.getHours(), 2) + ":" +
+                zeroPadding(now.getMinutes(), 2) + ":" +
+                zeroPadding(now.getSeconds(), 2);
+
+            // Update date
+            document.getElementById("date").innerText =
+                WEEK[now.getDay()] + ", " +
+                now.getFullYear() + "-" +
+                zeroPadding(now.getMonth() + 1, 2) + "-" +
+                zeroPadding(now.getDate(), 2);
+        }
+
+        function zeroPadding(num, digit) {
+            return String(num).padStart(digit, '0');
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
